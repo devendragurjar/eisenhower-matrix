@@ -2,31 +2,12 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
-:root {
-  --color-q1: #ef4444;
-  --color-q1-light: #fef2f2;
-  --color-q1-border: #fecaca;
-  --color-q2: #3b82f6;
-  --color-q2-light: #eff6ff;
-  --color-q2-border: #bfdbfe;
-  --color-q3: #f59e0b;
-  --color-q3-light: #fffbeb;
-  --color-q3-border: #fde68a;
-  --color-q4: #6b7280;
-  --color-q4-light: #f9fafb;
-  --color-q4-border: #e5e7eb;
-}
-
 body {
   margin: 0;
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   transition: background-color 0.3s, color 0.3s;
-}
-
-.dark body {
-  background-color: #0f172a;
-  color: #e2e8f0;
 }
 
 * {
@@ -38,38 +19,79 @@ body {
   scrollbar-color: #475569 transparent;
 }
 
+/* Animations */
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(-8px); }
+  from { opacity: 0; transform: translateY(-6px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
-.animate-fade-in {
-  animation: fadeIn 0.2s ease-out;
-}
-
 @keyframes scaleIn {
-  from { opacity: 0; transform: scale(0.95); }
+  from { opacity: 0; transform: scale(0.96); }
   to { opacity: 1; transform: scale(1); }
 }
 
-.animate-scale-in {
-  animation: scaleIn 0.2s ease-out;
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.animate-fade-in { animation: fadeIn 0.2s ease-out; }
+.animate-scale-in { animation: scaleIn 0.25s cubic-bezier(0.16, 1, 0.3, 1); }
+.animate-slide-up { animation: slideUp 0.3s ease-out; }
+
+/* Task cards */
 .task-card {
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
 }
 
 .task-card:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px -5px rgba(0, 0, 0, 0.08), 0 4px 10px -6px rgba(0, 0, 0, 0.05);
 }
 
 .dark .task-card:hover {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 8px 25px -5px rgba(0, 0, 0, 0.4), 0 4px 10px -6px rgba(0, 0, 0, 0.3);
 }
 
 .strikethrough {
   text-decoration: line-through;
-  opacity: 0.5;
+  opacity: 0.45;
+}
+
+/* Glassmorphism */
+.glass {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* Axis label styling */
+.axis-label {
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-weight: 800;
+  font-size: 0.65rem;
+  user-select: none;
+}
+
+.axis-label-vertical {
+  writing-mode: vertical-lr;
+  transform: rotate(180deg);
+}
+
+/* Quadrant hover glow */
+.quadrant-panel {
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.quadrant-panel:hover {
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.03), 0 8px 30px -8px rgba(0, 0, 0, 0.06);
+}
+
+.dark .quadrant-panel:hover {
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.03), 0 8px 30px -8px rgba(0, 0, 0, 0.3);
 }

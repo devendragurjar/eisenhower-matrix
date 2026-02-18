@@ -20,14 +20,17 @@ function AppContent() {
   }, [dispatch]);
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-slate-900 transition-colors">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-slate-50 to-gray-100
+      dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 transition-colors">
       <Header />
       <main className="max-w-[1400px] mx-auto px-4 sm:px-6 py-6">
         <Stats />
         <Matrix />
         <DoneSection />
-        <footer className="mt-8 pb-4 text-center text-xs text-gray-400 dark:text-gray-600">
-          Drag tasks between quadrants &middot; Ctrl+Z to undo &middot; Data saved locally
+        <footer className="mt-10 pb-6 text-center">
+          <p className="text-[11px] font-medium text-gray-300 dark:text-gray-700">
+            Drag tasks between quadrants &middot; Ctrl+Z to undo &middot; Data saved locally
+          </p>
         </footer>
       </main>
     </div>
