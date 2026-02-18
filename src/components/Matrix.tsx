@@ -12,7 +12,6 @@ import {
 import { sortableKeyboardCoordinates } from '@dnd-kit/sortable';
 import { useState } from 'react';
 import type { QuadrantId, Task } from '../types';
-import { QUADRANT_CONFIG } from '../types';
 import { useStore } from '../store';
 import Quadrant from './Quadrant';
 
@@ -60,16 +59,16 @@ export default function Matrix() {
       onDragStart={handleDragStart}
       onDragEnd={handleDragEnd}
     >
-      <div className="flex gap-3">
-        {/* Left axis: IMPORTANT / NOT IMPORTANT */}
-        <div className="hidden md:flex flex-col shrink-0 w-7 pt-10">
+      <div className="flex gap-4">
+        {/* Left axis labels */}
+        <div className="hidden md:flex flex-col shrink-0 w-7 pt-12">
           <div className="flex-1 flex items-center justify-center">
-            <span className="axis-label axis-label-vertical bg-gradient-to-b from-emerald-500 to-emerald-400 bg-clip-text text-transparent">
+            <span className="axis-label axis-label-vertical text-green-500/70 dark:text-green-500/50">
               Important
             </span>
           </div>
           <div className="flex-1 flex items-center justify-center">
-            <span className="axis-label axis-label-vertical bg-gradient-to-b from-slate-400 to-slate-300 bg-clip-text text-transparent dark:from-slate-500 dark:to-slate-600">
+            <span className="axis-label axis-label-vertical text-gray-400/70 dark:text-gray-600/50">
               Not Important
             </span>
           </div>
@@ -77,22 +76,22 @@ export default function Matrix() {
 
         {/* Grid area */}
         <div className="flex-1 min-w-0">
-          {/* Top axis: URGENT / NOT URGENT */}
-          <div className="hidden md:grid grid-cols-2 gap-3 mb-3">
-            <div className="flex items-center justify-center py-2 rounded-xl bg-red-500/5 dark:bg-red-500/10 border border-red-200/50 dark:border-red-800/30">
-              <span className="axis-label bg-gradient-to-r from-red-500 to-rose-500 bg-clip-text text-transparent">
+          {/* Top axis labels */}
+          <div className="hidden md:grid grid-cols-2 gap-4 mb-3">
+            <div className="text-center py-1.5">
+              <span className="axis-label text-red-400/70 dark:text-red-500/50">
                 Urgent
               </span>
             </div>
-            <div className="flex items-center justify-center py-2 rounded-xl bg-blue-500/5 dark:bg-blue-500/10 border border-blue-200/50 dark:border-blue-800/30">
-              <span className="axis-label bg-gradient-to-r from-blue-500 to-indigo-500 bg-clip-text text-transparent">
+            <div className="text-center py-1.5">
+              <span className="axis-label text-blue-400/70 dark:text-blue-500/50">
                 Not Urgent
               </span>
             </div>
           </div>
 
-          {/* 2x2 quadrant grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+          {/* 2x2 grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <Quadrant id="q1" />
             <Quadrant id="q2" />
             <Quadrant id="q3" />
@@ -103,12 +102,8 @@ export default function Matrix() {
 
       <DragOverlay>
         {activeTask && (
-          <div className="p-3 rounded-xl border-2 bg-white dark:bg-slate-800 border-blue-400 dark:border-blue-500
-            shadow-2xl shadow-blue-500/20 rotate-2 max-w-[280px]">
-            <div className="flex items-center gap-2">
-              <span className="text-sm">{QUADRANT_CONFIG[activeTask.quadrant].icon}</span>
-              <p className="text-sm font-semibold text-gray-900 dark:text-white truncate">{activeTask.title}</p>
-            </div>
+          <div className="p-3 rounded-xl border bg-white dark:bg-slate-800 border-blue-300 dark:border-blue-600 shadow-xl rotate-2 opacity-90">
+            <p className="text-sm font-medium text-gray-900 dark:text-white">{activeTask.title}</p>
           </div>
         )}
       </DragOverlay>
