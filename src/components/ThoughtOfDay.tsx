@@ -30,16 +30,16 @@ export default function ThoughtOfDay() {
   return (
     <div className="flex flex-col gap-3 w-64 shrink-0">
       <div className="rounded-xl border border-purple-200 dark:border-purple-800/50 bg-purple-50 dark:bg-purple-950/30 p-4 flex flex-col gap-3">
-        <div className="flex items-center gap-2">
-          <span className="text-lg">💭</span>
-          <h3 className="font-semibold text-purple-700 dark:text-purple-300 text-sm tracking-wide uppercase">
+        <div className="flex items-center gap-1.5">
+          <span className="text-sm">💭</span>
+          <h3 className="font-medium text-purple-500 dark:text-purple-400 text-xs tracking-wide uppercase">
             Thought of the Day
           </h3>
         </div>
 
         {currentThought && !editing ? (
           <div className="flex flex-col gap-2">
-            <p className="text-gray-700 dark:text-gray-200 text-sm leading-relaxed whitespace-pre-wrap">
+            <p className="text-gray-800 dark:text-gray-100 text-xl font-bold leading-snug whitespace-pre-wrap">
               {currentThought}
             </p>
             <div className="flex gap-2 mt-1">
