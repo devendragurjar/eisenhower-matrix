@@ -1,6 +1,6 @@
 import { createContext, useContext, useReducer, useEffect, type ReactNode, useCallback } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import type { AppState, Action, Board, Task, QuadrantId } from './types';
+import type { AppState, Action, Board, Task, QuadrantId, Thought } from './types';
 
 const STORAGE_KEY = 'metrix-app-data';
 const MAX_UNDO = 20;
@@ -23,6 +23,8 @@ function loadState(): AppState {
         ...parsed,
         searchQuery: '',
         undoStack: [],
+        currentThought: parsed.currentThought ?? null,
+        erasedThoughts: parsed.erasedThoughts ?? [],
       };
     }
   } catch {
@@ -35,6 +37,8 @@ function loadState(): AppState {
     darkMode: window.matchMedia('(prefers-color-scheme: dark)').matches,
     searchQuery: '',
     undoStack: [],
+    currentThought: null,
+    erasedThoughts: [],
   };
 }
 
@@ -193,6 +197,25 @@ function reducer(state: AppState, action: Action): AppState {
         boards: action.payload,
         activeBoardId: action.payload[0]?.id || state.activeBoardId,
         undoStack: [],
+      };
+
+    case 'SET_THOUGHT':
+      return { ...state, currentThought: action.payload };
+
+    case 'ERASE_THOUGHT': {
+      if (!state.currentThought) return state;
+      const erased: Thought = { id: uuidv4(), text: state.currentThought };
+      return {
+        ...state,
+        currentThought: null,
+        erasedThoughts: [erased, ...state.erasedThoughts],
+      };
+    }
+
+    case 'DELETE_ERASED_THOUGHT':
+      return {
+        ...state,
+        erasedThoughts: state.erasedThoughts.filter(t => t.id !== action.payload),
       };
 
     default:

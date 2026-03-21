@@ -1,5 +1,10 @@
 export type QuadrantId = 'q1' | 'q2' | 'q3' | 'q4';
 
+export interface Thought {
+  id: string;
+  text: string;
+}
+
 export interface Task {
   id: string;
   title: string;
@@ -26,6 +31,8 @@ export interface AppState {
   darkMode: boolean;
   searchQuery: string;
   undoStack: Board[];
+  currentThought: string | null;
+  erasedThoughts: Thought[];
 }
 
 export const QUADRANT_CONFIG: Record<QuadrantId, {
@@ -99,4 +106,7 @@ export type Action =
   | { type: 'TOGGLE_DARK_MODE' }
   | { type: 'SET_SEARCH'; payload: string }
   | { type: 'UNDO' }
-  | { type: 'IMPORT_DATA'; payload: Board[] };
+  | { type: 'IMPORT_DATA'; payload: Board[] }
+  | { type: 'SET_THOUGHT'; payload: string }
+  | { type: 'ERASE_THOUGHT' }
+  | { type: 'DELETE_ERASED_THOUGHT'; payload: string };
