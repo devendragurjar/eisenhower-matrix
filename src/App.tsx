@@ -25,7 +25,7 @@ function AppContent() {
       <Header />
       <main className="max-w-[1600px] mx-auto px-4 sm:px-6 py-6">
         <Stats />
-        <div className="flex gap-4 items-start">
+        <div className="flex flex-col lg:flex-row gap-4 lg:items-start">
           <div className="flex-1 min-w-0">
             <Matrix />
           </div>

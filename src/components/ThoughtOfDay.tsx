@@ -28,7 +28,7 @@ export default function ThoughtOfDay() {
   }
 
   return (
-    <div className="flex flex-col gap-3 w-64 shrink-0">
+    <div className="flex flex-col gap-3 w-full lg:w-64 lg:shrink-0">
       <div className="rounded-xl border border-purple-200 dark:border-purple-800/50 bg-purple-50 dark:bg-purple-950/30 p-4 flex flex-col gap-3">
         <div className="flex items-center gap-1.5">
           <span className="text-sm">💭</span>
