@@ -1,6 +1,6 @@
 import { createContext, useContext, useReducer, useEffect, type ReactNode, useCallback } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import type { AppState, Action, Board, Task, QuadrantId, Thought } from './types';
+import type { AppState, Action, Board, Task, QuadrantId, Thought, Goal } from './types';
 
 const STORAGE_KEY = 'metrix-app-data';
 const MAX_UNDO = 20;
@@ -25,6 +25,7 @@ function loadState(): AppState {
         undoStack: [],
         currentThought: parsed.currentThought ?? null,
         erasedThoughts: parsed.erasedThoughts ?? [],
+        goals: parsed.goals ?? [],
       };
     }
   } catch {
@@ -39,6 +40,7 @@ function loadState(): AppState {
     undoStack: [],
     currentThought: null,
     erasedThoughts: [],
+    goals: [],
   };
 }
 
@@ -216,6 +218,30 @@ function reducer(state: AppState, action: Action): AppState {
       return {
         ...state,
         erasedThoughts: state.erasedThoughts.filter(t => t.id !== action.payload),
+      };
+
+    case 'ADD_GOAL': {
+      const newGoal: Goal = {
+        ...action.payload,
+        id: uuidv4(),
+        createdAt: new Date().toISOString(),
+        completed: false,
+      };
+      return { ...state, goals: [newGoal, ...state.goals] };
+    }
+
+    case 'COMPLETE_GOAL':
+      return {
+        ...state,
+        goals: state.goals.map(g =>
+          g.id === action.payload ? { ...g, completed: !g.completed } : g
+        ),
+      };
+
+    case 'DELETE_GOAL':
+      return {
+        ...state,
+        goals: state.goals.filter(g => g.id !== action.payload),
       };
 
     default:

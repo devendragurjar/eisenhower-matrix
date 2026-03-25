@@ -5,6 +5,7 @@ import Stats from './components/Stats';
 import Matrix from './components/Matrix';
 import DoneSection from './components/DoneSection';
 import ThoughtOfDay from './components/ThoughtOfDay';
+import GoalTracker from './components/GoalTracker';
 
 function AppContent() {
   const { dispatch } = useStore();
@@ -29,7 +30,10 @@ function AppContent() {
           <div className="flex-1 min-w-0">
             <Matrix />
           </div>
-          <ThoughtOfDay />
+          <div className="flex flex-col gap-3 w-full lg:w-64 lg:shrink-0">
+            <ThoughtOfDay />
+            <GoalTracker />
+          </div>
         </div>
         <DoneSection />
         <footer className="mt-8 pb-4 text-center text-xs text-gray-400 dark:text-gray-600">

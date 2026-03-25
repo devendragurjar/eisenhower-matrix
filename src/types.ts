@@ -5,6 +5,17 @@ export interface Thought {
   text: string;
 }
 
+export type TimelineType = 'day' | 'month' | 'year';
+
+export interface Goal {
+  id: string;
+  text: string;
+  timelineType: TimelineType;
+  timelineValue: string;
+  completed: boolean;
+  createdAt: string;
+}
+
 export interface Task {
   id: string;
   title: string;
@@ -33,6 +44,7 @@ export interface AppState {
   undoStack: Board[];
   currentThought: string | null;
   erasedThoughts: Thought[];
+  goals: Goal[];
 }
 
 export const QUADRANT_CONFIG: Record<QuadrantId, {
@@ -109,4 +121,7 @@ export type Action =
   | { type: 'IMPORT_DATA'; payload: Board[] }
   | { type: 'SET_THOUGHT'; payload: string }
   | { type: 'ERASE_THOUGHT' }
-  | { type: 'DELETE_ERASED_THOUGHT'; payload: string };
+  | { type: 'DELETE_ERASED_THOUGHT'; payload: string }
+  | { type: 'ADD_GOAL'; payload: Omit<Goal, 'id' | 'createdAt' | 'completed'> }
+  | { type: 'COMPLETE_GOAL'; payload: string }
+  | { type: 'DELETE_GOAL'; payload: string };
